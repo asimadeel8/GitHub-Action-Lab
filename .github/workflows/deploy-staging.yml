@@ -1,28 +1,25 @@
-name: Deploy Website to GitHub Pages
+name: Deploy Staging Website
 
 on:
   push:
-    branches: [ "main" ]
-  workflow_dispatch:
+    branches: [ "develop" ]
 
 permissions:
   pages: write
   id-token: write
 
 jobs:
-  deploy:
-    if: github.ref == 'refs/heads/main'
+  deploy-staging:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Upload website files
+      - name: Upload staging site
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages (Staging)
         uses: actions/deploy-pages@v4
-        

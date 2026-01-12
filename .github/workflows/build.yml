@@ -2,12 +2,14 @@ name: Build Website (CI)
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - "*"
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - "*"
 
 jobs:
-  check-html:
+  validate-html:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,11 +21,12 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Check if index.html exists
+      - name: Validate index.html file
         run: |
+          echo "Checking for index.html..."
           if [ -f index.html ]; then
-            echo "index.html found. Build successful."
+            echo "index.html found. CI check passed."
           else
-            echo "index.html not found. Build failed."
+            echo "index.html not found. CI check failed."
             exit 1
           fi
